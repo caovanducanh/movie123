@@ -36,19 +36,6 @@ public class CountryController {
         return "redirect:/countries";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable int id, Model model) {
-        Optional<Country> country = countryService.getCountryById(id);
-        country.ifPresent(value -> model.addAttribute("country", value));
-        return "countries/edit";
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateCountry(@PathVariable int id, @ModelAttribute Country country) {
-        country.setId(id);
-        countryService.saveCountry(country);
-        return "redirect:/countries";
-    }
 
     @GetMapping("/delete/{id}")
     public String deleteCountry(@PathVariable int id) {
