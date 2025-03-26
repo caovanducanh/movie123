@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Component
@@ -114,6 +115,39 @@ public class DataInit implements CommandLineRunner {
 
                 {"Pulp Fiction", "Intertwined crime stories in LA.", "1994", "9", "https://example.com/pulp_fiction", "https://musicart.xboxlive.com/7/767c6300-0000-0000-0000-000000000002/504/image.jpg", "https://example.com/pulp_fiction_trailer"}
         };
+
+        Movie movie123 = new Movie(
+                "Interstellar",
+                "A sci-fi journey through space and time.",
+                2014,
+                9,
+                "https://example.com/interstellar",
+                "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF1000,1000_QL80_.jpg",
+                "https://example.com/interstellar_trailer",
+                usa
+        );
+        movieRepo.save(movie123);
+
+        MovieGenre movieGenre = new MovieGenre(
+                movie123,
+                action
+        );
+
+        MovieGenre movieGenre1 = new MovieGenre(
+                movie123,
+                comedy
+        );
+        movieGenreRepo.save(movieGenre);
+        movieGenreRepo.save(movieGenre1);
+
+
+
+
+
+
+
+
+
 
         for (String[] movieData : movies) {
             Movie movie = new Movie();

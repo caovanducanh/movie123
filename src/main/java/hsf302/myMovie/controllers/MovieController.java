@@ -1,6 +1,8 @@
 package hsf302.myMovie.controllers;
 
 import hsf302.myMovie.models.Movie;
+import hsf302.myMovie.models.MovieGenre;
+import hsf302.myMovie.services.MovieGenreService;
 import hsf302.myMovie.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private MovieGenreService movieGenreService;
+
 
     @GetMapping("/home")
     public String getAllMovies(Model model) {
@@ -24,6 +29,24 @@ public class MovieController {
         model.addAttribute("movies", movies);
         return "home";
     }
+
+    @GetMapping("/getmoviebyid")
+    public String getMovieById(@RequestParam(name = "id") int id, Model model) {
+        Optional<Movie> movieOptional = movieService.getMovieById(id);
+
+        if (movieOptional.isPresent()) {
+            Movie movie = movieOptional.get();
+            model.addAttribute("movie", movie);
+
+            List<MovieGenre> movieGenres = movieGenreService.getMovieGenresByMovieId(movie.getId());
+            model.addAttribute("movieGenres", movieGenres);
+
+                return "detail";
+        }
+
+        return "redirect:/movies"; // Nếu không tìm thấy phim, chuyển hướng về danh sách phim
+    }
+
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
