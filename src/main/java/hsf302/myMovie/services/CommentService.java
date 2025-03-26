@@ -5,30 +5,23 @@ import hsf302.myMovie.repo.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommentService {
-
-    private final CommentRepo commentRepo;
+    @Autowired
+    private final CommentRepo commentRepository;
 
     @Autowired
-    public CommentService(CommentRepo commentRepo) {
-        this.commentRepo = commentRepo;
+    public CommentService(CommentRepo commentRepository) {
+        this.commentRepository = commentRepository;
     }
 
-
-    public Comment addComment(Comment comment) {
-        comment.setCreatedAt(LocalDateTime.now());
-        return commentRepo.save(comment);
+    public void addComment(Comment comment) {
+        commentRepository.save(comment);
     }
-
 
     public List<Comment> getAllCommentsByMovie(int movieId) {
-        return commentRepo.findAllByMovieId(movieId);
+        return commentRepository.findByMovieId(movieId);
     }
-
-
 }

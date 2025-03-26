@@ -1,7 +1,6 @@
 package hsf302.myMovie.controllers;
 
 import hsf302.myMovie.models.*;
-import hsf302.myMovie.repo.GenreRepo;
 import hsf302.myMovie.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,8 @@ public class MovieController {
 
     @Autowired
     private FavoriteMovieService favoriteMovieService;
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("/home")
@@ -64,7 +65,8 @@ public class MovieController {
 
             List<MovieGenre> movieGenres = movieGenreService.getMovieGenresByMovieId(movie.getId());
             model.addAttribute("movieGenres", movieGenres);
-
+            List<Comment> comments = commentService.getAllCommentsByMovie(movieOptional.get().getId());
+            model.addAttribute("comments", comments);
                 return "detail";
         }
 
@@ -172,10 +174,18 @@ public class MovieController {
         model.addAttribute("movies", favoriteMovies);
         return "favorite_movies"; // Trả về trang hiển thị phim yêu thích
     }
+    @GetMapping("/details")
+    public String movieDetails(@RequestParam int id, Model model) {
+        Optional<Movie> movieOptional = movieService.getMovieById(id);
+        if (movieOptional.isEmpty()) {
+            return "redirect:/movies/home";
+        }
 
+        Movie movie = movieOptional.get();
+        List<Comment> comments = commentService.getAllCommentsByMovie(id);
 
-
-
-
-
+        model.addAttribute("movie", movie);
+        model.addAttribute("comments", comments);
+        return "detail"; // Trả về trang detail.html
+    }
 }

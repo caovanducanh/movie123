@@ -121,6 +121,24 @@
     </div>
 
     <br>
+    <div class="comment-section">
+        <h2>Comments</h2>
+        <ul>
+                <li th:each="comment : ${comments}">
+                    <strong th:text="${comment.fullName}"></strong>:
+                    <span th:text="${comment.content}"></span>
+                    <em th:text="${comment.createdAt}"></em>
+                </li>
+        </ul>
+    </div>
+
+    <!-- Form thêm bình luận -->
+    <form action="/comments/add" method="post">
+        <input type="hidden" name="movieId" th:value="${movie.id}">
+        <textarea name="content" rows="3" required></textarea>
+        <button type="submit">Add Comment</button>
+    </form>
+
     <br>
     <a href="/movies/home">Back to Movies List</a>
 
