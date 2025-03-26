@@ -50,11 +50,12 @@
   <div class="movie-grid">
     <!-- Lặp qua danh sách phim -->
     <th:block th:each="movie : ${movies}">
-      <div class="movie-card">
+      <a th:href="@{/movies/getmoviebyid(id=${movie.id})}" class="movie-card">
         <img th:src="${movie.thumbnailURL}" alt="Movie Thumbnail">
         <div class="movie-title" th:text="${movie.movieName}"></div>
-      </div>
+      </a>
     </th:block>
+
   </div>
 </div>
 </body>

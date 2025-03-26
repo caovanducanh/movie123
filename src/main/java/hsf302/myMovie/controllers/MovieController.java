@@ -68,4 +68,5 @@ public class MovieController {
         model.addAttribute("keyword", keyword);
         return "movies/index";
     }
+
 }
