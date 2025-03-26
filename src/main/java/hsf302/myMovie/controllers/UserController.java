@@ -37,7 +37,7 @@ public class UserController {
             acc = userService.findByEmail(emailOrUsername);
         } else {
             // Nếu không phải email, tìm người dùng bằng username
-            acc = userService.findByUsername(emailOrUsername);
+            acc = userService.findByUserName(emailOrUsername);
         }
 
         // Kiểm tra mật khẩu

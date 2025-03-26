@@ -10,8 +10,8 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public User findByUsername(String username) {
-        return userRepo.findByUsername(username);
+    public User findByUserName(String userName) {
+        return userRepo.findByUserName(userName);
     }
 
     public User findByEmail(String email) {
@@ -19,7 +19,7 @@ public class UserService {
 
     }
 
-    public User findByUserId(int userId) {
-        return userRepo.findByUserId(userId);
+    public User findByid(int id) {
+        return userRepo.findById(id);
     }
 }
