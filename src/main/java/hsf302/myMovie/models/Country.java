@@ -19,7 +19,7 @@ public class Country {
     @Column(name = "CountryName")
     private String countryName;
 
-    @OneToMany(mappedBy = "Country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Movie> movies = new ArrayList<>();
 
     public Country() {
