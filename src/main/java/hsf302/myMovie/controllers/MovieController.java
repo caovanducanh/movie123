@@ -21,7 +21,7 @@ public class MovieController {
     public String getAllMovies(Model model) {
         List<Movie> movies = movieService.getAllMovies();
         model.addAttribute("movies", movies);
-        return "movies/index";
+        return "home";
     }
 
     @GetMapping("/create")
@@ -55,4 +55,6 @@ public class MovieController {
         movieService.deleteMovie(id);
         return "redirect:/movies";
     }
+
+
 }
