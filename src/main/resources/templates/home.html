@@ -65,6 +65,7 @@
 <body>
 <div class="container">
   <h2>Movie List</h2>
+  <a href="/movies/manage-movies">Manage movie</a>
   <div class="search-box">
     <form th:action="@{/movies}" method="get">
       <input type="text" name="keyword" placeholder="Search by name" th:value="${keyword}">

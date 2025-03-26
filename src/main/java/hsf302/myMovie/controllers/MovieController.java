@@ -1,7 +1,9 @@
 package hsf302.myMovie.controllers;
 
+import hsf302.myMovie.models.Country;
 import hsf302.myMovie.models.Movie;
 import hsf302.myMovie.models.MovieGenre;
+import hsf302.myMovie.services.CountryService;
 import hsf302.myMovie.services.MovieGenreService;
 import hsf302.myMovie.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,22 @@ public class MovieController {
     @Autowired
     private MovieGenreService movieGenreService;
 
+    @Autowired
+    private CountryService countryService;
+
 
     @GetMapping("/home")
     public String getAllMovies(Model model) {
         List<Movie> movies = movieService.getAllMovies();
         model.addAttribute("movies", movies);
         return "home";
+    }
+
+    @GetMapping("/manage-movies")
+    public String getAllMoviesList(Model model) {
+        List<Movie> movies = movieService.getAllMovies();
+        model.addAttribute("movies", movies);
+        return "movie-list";
     }
 
     @GetMapping("/getmoviebyid")
@@ -50,34 +62,39 @@ public class MovieController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("movie", new Movie());
-        return "movies/create";
+        Movie movieEmpty = new Movie();
+        model.addAttribute("movie", movieEmpty);
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("countries", countries);
+        return "movie-form";
     }
 
     @PostMapping("/save")
     public String saveMovie(@ModelAttribute Movie movie) {
         movieService.saveMovie(movie);
-        return "redirect:/movies";
+        return "redirect:/movies/home";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable int id, Model model) {
         Optional<Movie> movie = movieService.getMovieById(id);
         movie.ifPresent(value -> model.addAttribute("movie", value));
-        return "movies/edit";
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("countries", countries);
+        return "movie-form";
     }
 
     @PostMapping("/update/{id}")
     public String updateMovie(@PathVariable int id, @ModelAttribute Movie movie) {
         movie.setId(id);
         movieService.saveMovie(movie);
-        return "redirect:/movies";
+        return "redirect:/movies/manage-movies";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable int id) {
         movieService.deleteMovie(id);
-        return "redirect:/movies";
+        return "redirect:/movies/manage-movies";
     }
     @GetMapping
     public String getMoviesByName(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
