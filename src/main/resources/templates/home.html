@@ -63,6 +63,21 @@
   </style>
 </head>
 <body>
+<form th:action="@{/movies}" method="get">
+  <select name="genreId" onchange="this.form.submit()">
+    <option value="">All Genres</option>
+    <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.genreName}"
+            th:selected="${genre.id == selectedGenreId}"></option>
+  </select>
+
+  <select name="countryId" onchange="this.form.submit()">
+    <option value="">All Countries</option>
+    <option th:each="country : ${countries}" th:value="${country.id}" th:text="${country.countryName}"
+            th:selected="${country.id == selectedCountryId}"></option>
+  </select>
+</form>
+
+
 <div class="container">
   <h2>Movie List</h2>
   <div class="search-box">
