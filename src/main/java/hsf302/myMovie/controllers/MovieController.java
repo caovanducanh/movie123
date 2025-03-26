@@ -32,9 +32,7 @@ public class MovieController {
     @Autowired
     private CountryService countryService;
 
-
-    @Autowired
-    private CountryService countryService;
+    
 
 
     @GetMapping("/home")
