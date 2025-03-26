@@ -13,34 +13,34 @@ public class FavoriteMovie {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID")
-    private User User;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MovieID")
-    private Movie Movie;
+    private Movie movie;
 
     public FavoriteMovie() {
     }
 
     public FavoriteMovie(User user, Movie movie) {
-        User = user;
-        Movie = movie;
+        this.user = user;
+        this.movie = movie;
     }
 
     public User getUser() {
-        return User;
+        return user;
     }
 
     public void setUser(User user) {
-        User = user;
+        this.user = user;
     }
 
     public Movie getMovie() {
-        return Movie;
+        return movie;
     }
 
     public void setMovie(Movie movie) {
-        Movie = movie;
+        this.movie = movie;
     }
 
     public int getId() {

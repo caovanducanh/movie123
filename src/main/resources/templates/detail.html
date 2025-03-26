@@ -105,6 +105,13 @@
     <!-- Nút mở modal -->
     <button class="trailer-button" onclick="showTrailer()">Watch Trailer</button>
 
+    <!-- Nút thêm vào danh sách yêu thích -->
+    <form action="/movies/addToFavorites" method="post">
+        <input type="hidden" name="movieId" th:value="${movie.id}">
+        <button class="trailer-button" type="submit">Add to Favorites</button>
+    </form>
+
+
     <!-- Modal hiển thị trailer -->
     <div id="trailer-modal" class="trailer-modal">
         <div class="modal-content">

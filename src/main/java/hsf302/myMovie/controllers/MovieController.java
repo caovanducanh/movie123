@@ -2,15 +2,13 @@ package hsf302.myMovie.controllers;
 
 import hsf302.myMovie.models.*;
 import hsf302.myMovie.repo.GenreRepo;
-import hsf302.myMovie.services.CountryService;
-import hsf302.myMovie.services.GenreService;
-import hsf302.myMovie.services.MovieGenreService;
-import hsf302.myMovie.services.MovieService;
+import hsf302.myMovie.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +27,10 @@ public class MovieController {
 
     @Autowired
     private CountryService countryService;
-    
+
+    @Autowired
+    private FavoriteMovieService favoriteMovieService;
+
 
     @GetMapping("/home")
     public String getAllMovies(Model model , HttpSession session) {
@@ -141,6 +142,40 @@ public class MovieController {
 
         return "redirect:/movies"; // Nếu không tìm thấy phim, quay về danh sách phim
     }
+
+    @PostMapping("/addToFavorites")
+    public String addToFavorites(@RequestParam("movieId") int movieId, HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("acc");
+
+        if (user == null) { // Kiểm tra nếu chưa đăng nhập
+            redirectAttributes.addFlashAttribute("error", "Please log in to add favorites.");
+            return "redirect:/login";
+        }
+
+        favoriteMovieService.addFavorite(user.getId(), movieId); // Sử dụng user.getId() thay vì userId chưa khai báo
+        redirectAttributes.addFlashAttribute("success", "Movie added to favorites!");
+
+        return "redirect:/movies/getmoviebyid?id=" + movieId;
+    }
+
+    @GetMapping("/favorites")
+    public String viewFavoriteMovies(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("acc");
+
+
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        List<Movie> favoriteMovies = favoriteMovieService.getFavoriteMoviesByUser(user);
+        model.addAttribute("movies", favoriteMovies);
+        return "favorite_movies"; // Trả về trang hiển thị phim yêu thích
+    }
+
+
+
+
 
 
 }

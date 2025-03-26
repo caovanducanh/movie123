@@ -35,7 +35,7 @@ public class User {
     public User() {
     }
 
-    @OneToMany (mappedBy = "User", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FavoriteMovie> favoriteMovies = new ArrayList<>();
 
     public User(String userName, String fullName, String email, String password, int role) {

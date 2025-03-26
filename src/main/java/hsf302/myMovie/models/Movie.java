@@ -40,7 +40,7 @@ public class Movie {
     @Column(name="TrailerURL")
     private String trailerURL;
 
-    @OneToMany (mappedBy = "Movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FavoriteMovie> favoriteMovies = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
