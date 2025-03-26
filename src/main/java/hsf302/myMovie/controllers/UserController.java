@@ -45,7 +45,7 @@ public class UserController {
         // Kiểm tra mật khẩu
         if (acc != null && acc.getPassword().equals(password)) {
             session.setAttribute("acc", acc);
-            return "redirect:/home";
+            return "redirect:/movies/home";
         } else {
             model.addAttribute("error", "Sai tài khoản đăng nhập hoặc mật khẩu!");
             return "login";

@@ -17,7 +17,8 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping
+
+    @GetMapping("/home")
     public String getAllMovies(Model model) {
         List<Movie> movies = movieService.getAllMovies();
         model.addAttribute("movies", movies);

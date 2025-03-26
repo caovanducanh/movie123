@@ -92,45 +92,42 @@ public class DataInit implements CommandLineRunner {
         genreRepo.save(adventure);
 
 
-        // Thêm Movie
-        Movie movie1 = new Movie();
-        movie1.setMovieName("Inception");
-        movie1.setDescription("A mind-bending thriller by Christopher Nolan.");
-        movie1.setReleaseYear(2010);
-        movie1.setRating(9);
-        movie1.setMovieURL("https://example.com/inception");
-        movie1.setThumbnailURL("https://example.com/inception_thumbnail.jpg");
-        movie1.setTrailerURL("https://example.com/inception_trailer.mp4");
-        movie1.setCountry(usa);
-        movieRepo.save(movie1);
+        // Thêm nhiều phim
+        String[][] movies = {
+                {"Interstellar", "A sci-fi journey through space and time.", "2014", "9", "https://example.com/interstellar", "https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2025/2/28/interstellar-1740030627-174003-3997-2700-1740030837-17407532558271386299933-32-177-571-1207-crop-17407533212841333151791.jpg", "https://example.com/interstellar_trailer"},
 
-        // Gán MovieGenre cho Movie (Inception)
-        MovieGenre mg1 = new MovieGenre();
-        mg1.setMovie(movie1);
-        mg1.setGenre(action);
-        movieGenreRepo.save(mg1);
+                {"The Dark Knight", "Batman fights Joker in Gotham.", "2008", "9", "https://example.com/dark_knight", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ77pn9nAtHPaqM6EGK28nO7niXSMxgHsMdBA&s", "https://example.com/dark_knight_trailer"},
 
-        MovieGenre mg2 = new MovieGenre();
-        mg2.setMovie(movie1);
-        mg2.setGenre(sciFi);
-        movieGenreRepo.save(mg2);
+                {"Titanic", "A romantic drama set on the ill-fated Titanic.", "1997", "8", "https://example.com/titanic", "https://example.com/titanic_thumb", "https://example.com/titanic_trailer"},
+                {"Avatar", "An epic sci-fi adventure on Pandora.", "2009", "8", "https://example.com/avatar", "https://example.com/avatar_thumb", "https://example.com/avatar_trailer"},
 
-        MovieGenre mg3 = new MovieGenre();
-        mg3.setMovie(movie1);
-        mg3.setGenre(adventure);
-        movieGenreRepo.save(mg3);
+                {"The Matrix", "A hacker discovers the truth about reality.", "1999", "9", "https://example.com/matrix", "https://example.com/matrix_thumb", "https://example.com/matrix_trailer"},
+                {"Gladiator", "A Roman general seeks revenge.", "2000", "9", "https://example.com/gladiator", "https://example.com/gladiator_thumb", "https://example.com/gladiator_trailer"},
+
+                {"Joker", "The origin story of the iconic villain.", "2019", "8", "https://example.com/joker", "https://example.com/joker_thumb", "https://example.com/joker_trailer"},
+
+                {"Forrest Gump", "The extraordinary life of Forrest Gump.", "1994", "9", "https://example.com/forrest_gump", "https://example.com/forrest_gump_thumb", "https://example.com/forrest_gump_trailer"},
+
+                {"The Godfather", "A mafia family's rise and struggles.", "1972", "10", "https://example.com/godfather", "https://example.com/godfather_thumb", "https://example.com/godfather_trailer"},
+
+                {"Pulp Fiction", "Intertwined crime stories in LA.", "1994", "9", "https://example.com/pulp_fiction", "https://example.com/pulp_fiction_thumb", "https://example.com/pulp_fiction_trailer"}
+        };
+
+        for (String[] movieData : movies) {
+            Movie movie = new Movie();
+            movie.setMovieName(movieData[0]);
+            movie.setDescription(movieData[1]);
+            movie.setReleaseYear(Integer.parseInt(movieData[2]));
+            movie.setRating(Integer.parseInt(movieData[3]));
+            movie.setMovieURL(movieData[4]);
+            movie.setThumbnailURL(movieData[5]);
+            movie.setTrailerURL(movieData[6]);
+            movie.setCountry(usa);
+            movieRepo.save(movie);
+        }
 
 
 
-
-        // Thêm Comment cho Movie (Inception)
-        Comment comment1 = new Comment("John Doe", "A masterpiece of Nolan!", LocalDateTime.now(), movie1);
-        Comment comment2 = new Comment("Alice Smith", "Mind-blowing and visually stunning!", LocalDateTime.now(), movie1);
-        Comment comment3 = new Comment("David Johnson", "Great storytelling and concept.", LocalDateTime.now(), movie1);
-
-        commentRepo.save(comment1);
-        commentRepo.save(comment2);
-        commentRepo.save(comment3);
         System.out.println("Data initialized successfully");
 
 

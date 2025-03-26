@@ -32,8 +32,10 @@ public class Movie {
     @Column(name = "MovieURL")
     private String movieURL;
 
-    @Column(name="ThumbnailURL")
+
+    @Column(name = "ThumbnailURL", length = 500)
     private String thumbnailURL;
+
 
     @Column(name="TrailerURL")
     private String trailerURL;
