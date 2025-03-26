@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Controller
 public class UserController {
@@ -45,11 +47,55 @@ public class UserController {
             session.setAttribute("acc", acc);
             return "redirect:/home";
         } else {
-            model.addAttribute("error", "Wrong email/username or password");
+            model.addAttribute("error", "Sai tài khoản đăng nhập hoặc mật khẩu!");
             return "login";
         }
     }
 
+    @GetMapping({ "/register"})
+    public String showRegisterPage() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String doRegister(@RequestParam("userName") String userName,
+                             @RequestParam("fullName") String fullName,
+                             @RequestParam("email") String email,
+                             @RequestParam("password") String password,
+                             Model model) {
+
+        // Tạo mới người dùng
+        User newUser = new User();
+        newUser.setUserName(userName);
+        newUser.setFullName(fullName);
+        newUser.setEmail(email);
+        newUser.setPassword(password); // Lưu mật khẩu thuần (không mã hóa)
+
+        newUser.setRole(2); // Gán role mặc định là 2 (chưa admin)
+
+        // Kiểm tra xem tên người dùng đã tồn tại chưa
+        User acc = userService.findByUserName(userName);
+        if (acc != null) {
+            model.addAttribute("error1", "Tên người dùng đã tồn tại");
+            return "register";
+        }
+
+        // Kiểm tra xem email đã tồn tại chưa
+        acc = userService.findByEmail(email);
+        if (acc != null) {
+            model.addAttribute("error2", "Email đã tồn tại");
+            return "register";
+        }
+
+        // Nếu không có lỗi, lưu người dùng vào cơ sở dữ liệu
+        model.addAttribute("success", "Dang ky thanh cong");
+        userService.save(newUser);
+
+        // Chuyển hướng đến trang đăng nhập
+        return "login";
+
+
+    }
 
 
 

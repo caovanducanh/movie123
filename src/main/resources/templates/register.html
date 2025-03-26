@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<h1>Register</h1>
+<p th:if="${error}" th:text="'ERROR: ' + ${error}" style="color: red;"></p>
+
+<form action="/register" method="post">
+    <p>
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" name="userName"
+               th:value="${userName}" required>
+    <p th:if="${error1}" th:text="'ERROR: ' + ${error1}" style="color: red;"></p>
+    </p>
+    <p>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName"
+               th:value="${fullName}" required>
+
+    </p>
+    <p>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"
+               th:value="${email}" required>
+    <p th:if="${error2}" th:text="'ERROR: ' + ${error2}" style="color: red;"></p>
+    </p>
+    <p>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"
+               th:value="${password}" required>
+    </p>
+    <p>
+        <button type="submit">Register</button>
+    </p>
+    <p><a href="/login">Quay lại trang đăng nhập</a></p>
+</form>
+</body>
+</html>

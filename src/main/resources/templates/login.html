@@ -7,10 +7,12 @@
 <body>
 <h1>LOGIN</h1>
 <p th:if="${error}" th:text="'ERROR: ' + ${error}" style="color: red;"></p>
+<p th:if="${success}" th:text="' ' + ${success}" style="color: yellowgreen;"></p>
 <form action="/login" method="post">
   <p>
     <label for="emailOrUsername">Username or Email:</label>
-    <input type="text" id="emailOrUsername" name="emailOrUsername" required>
+    <input type="text" id="emailOrUsername" name="emailOrUsername"
+           th:value="${emailOrUsername}" required>
   </p>
   <p>
     <label for="password">Password:</label>
@@ -18,6 +20,9 @@
   </p>
   <p>
     <button type="submit">Login</button>
+    <a href="/register">
+      <button type="button">Register</button>
+    </a>
   </p>
 
 </form>
