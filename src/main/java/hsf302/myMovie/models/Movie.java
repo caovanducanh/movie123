@@ -45,7 +45,7 @@ public class Movie {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CountryID")
-    private Country Country;
+    private Country country;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MovieGenre> movieGenres = new ArrayList<>();
@@ -65,7 +65,7 @@ public class Movie {
         this.movieURL = movieURL;
         this.thumbnailURL = thumbnailURL;
         this.trailerURL = trailerURL;
-        Country = country;
+        this.country = country;
     }
 
     public int getId() {
@@ -133,10 +133,10 @@ public class Movie {
     }
 
     public Country getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(Country country) {
-        Country = country;
+        this.country = country;
     }
 }

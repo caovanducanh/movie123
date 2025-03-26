@@ -1,9 +1,12 @@
 package hsf302.myMovie.controllers;
 
 import hsf302.myMovie.models.Country;
+import hsf302.myMovie.models.Genre;
 import hsf302.myMovie.models.Movie;
 import hsf302.myMovie.models.MovieGenre;
+import hsf302.myMovie.repo.GenreRepo;
 import hsf302.myMovie.services.CountryService;
+import hsf302.myMovie.services.GenreService;
 import hsf302.myMovie.services.MovieGenreService;
 import hsf302.myMovie.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,12 @@ public class MovieController {
 
     @Autowired
     private MovieGenreService movieGenreService;
+    @Autowired
+    private GenreService genreService;
+
+    @Autowired
+    private CountryService countryService;
+
 
     @Autowired
     private CountryService countryService;
@@ -31,6 +40,12 @@ public class MovieController {
     @GetMapping("/home")
     public String getAllMovies(Model model) {
         List<Movie> movies = movieService.getAllMovies();
+        List<Genre> genres = genreService.getAllGenres();
+        List<Country> countries = countryService.getAllCountries();
+
+
+        model.addAttribute("countries", countries);
+        model.addAttribute("genres", genres);
         model.addAttribute("movies", movies);
         return "home";
     }
@@ -72,7 +87,7 @@ public class MovieController {
     @PostMapping("/save")
     public String saveMovie(@ModelAttribute Movie movie) {
         movieService.saveMovie(movie);
-        return "redirect:/movies/home";
+        return "redirect:/movies/manage-movies";
     }
 
     @GetMapping("/edit/{id}")
@@ -104,9 +119,32 @@ public class MovieController {
         } else {
             movies = movieService.getAllMovies();
         }
+
+        List<Genre> genres = genreService.getAllGenres();
+        List<Country> countries = countryService.getAllCountries();
+
+        model.addAttribute("countries", countries);
+        model.addAttribute("genres", genres);
+
+
+
         model.addAttribute("movies", movies);
         model.addAttribute("keyword", keyword);
         return "home";
     }
+
+    @GetMapping("/watch")
+    public String watchMovie(@RequestParam(name = "id") int id, Model model) {
+        Optional<Movie> movieOptional = movieService.getMovieById(id);
+
+        if (movieOptional.isPresent()) {
+            Movie movie = movieOptional.get();
+            model.addAttribute("movie", movie);
+            return "watch"; // Chuyển hướng đến trang xem phim
+        }
+
+        return "redirect:/movies"; // Nếu không tìm thấy phim, quay về danh sách phim
+    }
+
 
 }

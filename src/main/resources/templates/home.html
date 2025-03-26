@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,84 @@
       margin: 0;
       padding: 0;
     }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #007bff;
+      color: white;
+      font-size: 20px;
+    }
+
+    /* Filter Box */
+    .filter-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .filter-box select,
+    .filter-box input {
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .filter-box button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #ff4500;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 180px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: black;
+      padding: 10px;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Container */
     .container {
       max-width: 1200px;
       margin: 20px auto;
@@ -19,11 +97,13 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     .movie-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 20px;
     }
+
     .movie-card {
       background: white;
       border-radius: 10px;
@@ -32,46 +112,69 @@
       text-align: center;
       padding: 10px;
     }
+
     .movie-card img {
       width: 100%;
       height: auto;
       border-bottom: 1px solid #ddd;
     }
+
     .movie-title {
       font-size: 18px;
       font-weight: bold;
       margin-top: 10px;
     }
-    .search-box {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .search-box input {
-      padding: 10px;
-      width: 300px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .search-box button {
-      padding: 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
-<div class="container">
+
+<header class="header">
   <h2>Movie List</h2>
   <a href="/movies/manage-movies">Manage movie</a>
-  <div class="search-box">
-    <form th:action="@{/movies}" method="get">
-      <input type="text" name="keyword" placeholder="Search by name" th:value="${keyword}">
+
+  <!-- Bộ lọc Genre, Country và Search -->
+  <div class="filter-box">
+    <form id="filterForm" th:action="@{/movies}" method="get">
+      <select name="genre" id="genre">
+        <option value="">Genre</option>
+        <option th:each="g : ${genres}" th:value="${g.genreName}" th:text="${g.genreName}"></option>
+      </select>
+      <select name="country" id="country">
+        <option value="">Country</option>
+        <option th:each="c : ${countries}" th:value="${c.countryName}" th:text="${c.countryName}"></option>
+      </select>
+      <input type="text" name="keyword" placeholder="Search Movie" th:value="${keyword}">
       <button type="submit">Search</button>
     </form>
   </div>
+
+  <!-- Menu Dropdown -->
+  <div class="dropdown">
+    <button class="dropbtn">☰ Menu</button>
+    <div class="dropdown-content">
+      <th:block th:if="${session.userRoleId == 1}">
+        <a th:href="@{/admin/users}">Quản lý User</a>
+        <a th:href="@{/movies/manage}">Quản lý Phim</a>
+        <a th:href="@{/movies/favorites}">Phim Yêu Thích</a>
+        <a th:href="@{/logout}">Đăng Xuất</a>
+      </th:block>
+      <th:block th:if="${session.userRoleId == 2}">
+        <a th:href="@{/movies/favorites}">Phim Yêu Thích</a>
+        <a th:href="@{/logout}">Đăng Xuất</a>
+      </th:block>
+      <th:block th:if="${session.userRoleId == null}">
+        <a th:href="@{/login}">Đăng Nhập</a>
+      </th:block>
+    </div>
+  </div>
+
+
+  </div>
+</header>
+
+<div class="container">
+  <h2>Movie List</h2>
+
   <div class="movie-grid">
     <!-- Lặp qua danh sách phim -->
     <th:block th:each="movie : ${movies}">
@@ -81,6 +184,19 @@
       </a>
     </th:block>
   </div>
+
 </div>
+
+<script>
+  // Tự động submit form khi chọn Genre hoặc Country
+  document.getElementById("genre").addEventListener("change", function () {
+    document.getElementById("filterForm").submit();
+  });
+
+  document.getElementById("country").addEventListener("change", function () {
+    document.getElementById("filterForm").submit();
+  });
+</script>
+
 </body>
 </html>
