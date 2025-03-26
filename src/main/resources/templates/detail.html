@@ -95,6 +95,13 @@
         <span th:each="genre : ${movieGenres}" th:text="${genre.genre.genreName} + ' ' "></span>
     </p>
 
+    <!-- Nút xem phim -->
+    <form action="/movies/watch" method="get">
+        <input type="hidden" name="id" th:value="${movie.id}">
+        <button class="trailer-button" type="submit">View Movie</button>
+    </form>
+
+
     <!-- Nút mở modal -->
     <button class="trailer-button" onclick="showTrailer()">Watch Trailer</button>
 

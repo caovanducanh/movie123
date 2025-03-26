@@ -92,4 +92,18 @@ public class MovieController {
         return "home";
     }
 
+    @GetMapping("/watch")
+    public String watchMovie(@RequestParam(name = "id") int id, Model model) {
+        Optional<Movie> movieOptional = movieService.getMovieById(id);
+
+        if (movieOptional.isPresent()) {
+            Movie movie = movieOptional.get();
+            model.addAttribute("movie", movie);
+            return "watch"; // Chuyển hướng đến trang xem phim
+        }
+
+        return "redirect:/movies"; // Nếu không tìm thấy phim, quay về danh sách phim
+    }
+
+
 }
