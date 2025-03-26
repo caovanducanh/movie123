@@ -56,6 +56,16 @@ public class MovieController {
         movieService.deleteMovie(id);
         return "redirect:/movies";
     }
-
-
+    @GetMapping
+    public String getMoviesByName(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+        List<Movie> movies;
+        if (keyword != null && !keyword.isEmpty()) {
+            movies = movieService.getMovieByName(keyword);
+        } else {
+            movies = movieService.getAllMovies();
+        }
+        model.addAttribute("movies", movies);
+        model.addAttribute("keyword", keyword);
+        return "movies/index";
+    }
 }

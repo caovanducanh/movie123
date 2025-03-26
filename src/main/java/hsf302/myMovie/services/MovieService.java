@@ -17,6 +17,9 @@ public class MovieService {
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
+    public List<Movie> getMovieByName(String name) {
+        return movieRepository.findByMovieNameContainingIgnoreCase(name);
+    }
 
     public Optional<Movie> getMovieById(int id) {
         return movieRepository.findById(id);
