@@ -25,22 +25,41 @@
       gap: 20px;
     }
     .movie-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%; /* Đảm bảo mỗi card có chiều cao bằng nhau */
     }
+
+    .movie-title {
+      min-height: 40px; /* Đặt chiều cao tối thiểu để tiêu đề có cùng độ cao */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .button-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .delete-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%; /* Đảm bảo full chiều rộng của container */
+      text-align: center;
+    }
+
     .movie-card img {
       width: 100%;
       height: auto;
       border-bottom: 1px solid #ddd;
-    }
-    .movie-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 10px;
     }
     .search-box {
       margin-bottom: 20px;
@@ -70,16 +89,27 @@
       <input type="text" name="keyword" placeholder="Search by name" th:value="${keyword}">
       <button type="submit">Search</button>
     </form>
-  </div>
-  <div class="movie-grid">
-    <!-- Lặp qua danh sách phim -->
-    <th:block th:each="movie : ${movies}">
-      <a th:href="@{/movies/getmoviebyid(id=${movie.id})}" class="movie-card">
+  </div><div class="movie-grid">
+  <!-- Lặp qua danh sách phim -->
+  <th:block th:each="movie : ${movies}">
+    <div class="movie-card">
+      <a th:href="@{/movies/getmoviebyid(id=${movie.id})}" style="display: block; text-decoration: none; color: inherit;">
         <img th:src="${movie.thumbnailURL}" alt="Movie Thumbnail">
         <div class="movie-title" th:text="${movie.movieName}"></div>
       </a>
-    </th:block>
-  </div>
+
+      <th:block th:if="${session.userRoleId == 1}">
+        <div class="button-container">
+          <form th:action="@{/movies/delete/{id}(id=${movie.id})}" method="post"
+                onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?')">
+            <button type="submit" class="delete-btn">Xóa</button>
+          </form>
+        </div>
+      </th:block>
+
+    </div>
+  </th:block>
+</div>
 </div>
 </body>
 </html>

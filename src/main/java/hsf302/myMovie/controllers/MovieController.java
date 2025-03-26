@@ -74,11 +74,12 @@ public class MovieController {
         return "redirect:/movies";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteMovie(@PathVariable int id) {
         movieService.deleteMovie(id);
-        return "redirect:/movies";
+        return "redirect:/movies/home";
     }
+
     @GetMapping
     public String getMoviesByName(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         List<Movie> movies;
