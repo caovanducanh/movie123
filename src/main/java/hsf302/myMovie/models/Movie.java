@@ -65,7 +65,7 @@ public class Movie {
         this.movieURL = movieURL;
         this.thumbnailURL = thumbnailURL;
         this.trailerURL = trailerURL;
-        country = country;
+        this.country = country;
     }
 
     public int getId() {
@@ -137,6 +137,6 @@ public class Movie {
     }
 
     public void setCountry(Country country) {
-        country = country;
+        this.country = country;
     }
 }

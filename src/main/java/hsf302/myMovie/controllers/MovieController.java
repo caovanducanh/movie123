@@ -108,6 +108,15 @@ public class MovieController {
         } else {
             movies = movieService.getAllMovies();
         }
+
+        List<Genre> genres = genreService.getAllGenres();
+        List<Country> countries = countryService.getAllCountries();
+
+        model.addAttribute("countries", countries);
+        model.addAttribute("genres", genres);
+
+
+
         model.addAttribute("movies", movies);
         model.addAttribute("keyword", keyword);
         return "home";
