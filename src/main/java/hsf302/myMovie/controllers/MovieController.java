@@ -66,7 +66,7 @@ public class MovieController {
         }
         model.addAttribute("movies", movies);
         model.addAttribute("keyword", keyword);
-        return "movies/index";
+        return "home";
     }
 
 }
