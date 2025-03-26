@@ -31,7 +31,7 @@
             font-style: italic;
             color: #555;
         }
-        .trailer-link {
+        .trailer-button {
             display: inline-block;
             margin-top: 10px;
             padding: 10px;
@@ -39,9 +39,47 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            cursor: pointer;
+            border: none;
         }
-        .trailer-link:hover {
+        .trailer-button:hover {
             background: #0056b3;
+        }
+
+        /* Modal Style */
+        .trailer-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+        }
+        .close {
+            color: red;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -56,9 +94,50 @@
     <p class="genres"><strong>Genres:</strong>
         <span th:each="genre : ${movieGenres}" th:text="${genre.genre.genreName} + ' ' "></span>
     </p>
-    <a th:href="${movie.trailerURL}" class="trailer-link" target="_blank">Watch Trailer</a>
+
+    <!-- Nút mở modal -->
+    <button class="trailer-button" onclick="showTrailer()">Watch Trailer</button>
+
+    <!-- Modal hiển thị trailer -->
+    <div id="trailer-modal" class="trailer-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTrailer()">&times;</span>
+            <iframe id="trailer-frame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <br>
-    <a href="/movies">Back to Movies List</a>
+    <br>
+    <a href="/movies/home">Back to Movies List</a>
+
+
 </div>
+
+<script>
+    function showTrailer() {
+        var rawURL = "[[${movie.trailerURL}]]"; // Lấy URL gốc từ Thymeleaf
+        var embedURL = convertToEmbedURL(rawURL); // Chuyển thành dạng nhúng
+        document.getElementById("trailer-frame").src = embedURL;
+        document.getElementById("trailer-modal").style.display = "flex";
+    }
+
+    function closeTrailer() {
+        document.getElementById("trailer-modal").style.display = "none";
+        document.getElementById("trailer-frame").src = ""; // Dừng video khi đóng modal
+    }
+
+    function convertToEmbedURL(url) {
+        let videoID = url.split("v=")[1]; // Lấy ID video
+        if (videoID) {
+            let ampersandPos = videoID.indexOf("&");
+            if (ampersandPos !== -1) {
+                videoID = videoID.substring(0, ampersandPos); // Xóa tham số sau ID
+            }
+            return "https://www.youtube.com/embed/" + videoID;
+        }
+        return url; // Trả về URL cũ nếu không đúng định dạng
+    }
+</script>
+
 </body>
 </html>

@@ -95,7 +95,7 @@ public class DataInit implements CommandLineRunner {
 
         // Thêm nhiều phim
         String[][] movies = {
-                {"Interstellar", "A sci-fi journey through space and time.", "2014", "9", "https://example.com/interstellar", "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF1000,1000_QL80_.jpg", "https://example.com/interstellar_trailer"},
+                {"Interstellar", "A sci-fi journey through space and time.", "2014", "9", "https://example.com/interstellar", "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF1000,1000_QL80_.jpg", "https://www.youtube.com/watch?v=zSWdZVtXT7E"},
 
                 {"The Dark Knight", "Batman fights Joker in Gotham.", "2008", "9", "https://example.com/dark_knight", "https://play-lh.googleusercontent.com/auIs5tjWlLYaFPGClZOJ7m5YVbnX6uBvz0X02r8TkwFKdzE53ww2MqWSS9gU0YNqoYwvpg", "https://example.com/dark_knight_trailer"},
 
@@ -123,7 +123,7 @@ public class DataInit implements CommandLineRunner {
                 9,
                 "https://example.com/interstellar",
                 "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF1000,1000_QL80_.jpg",
-                "https://example.com/interstellar_trailer",
+                "https://www.youtube.com/watch?v=zSWdZVtXT7E",
                 usa
         );
         movieRepo.save(movie123);
