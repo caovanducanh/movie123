@@ -151,15 +151,23 @@
   <div class="dropdown">
     <button class="dropbtn">☰ Menu</button>
     <div class="dropdown-content">
-      <th:block th:if="${role == 1}">
-        <a th:href="@{/users}">Quản lý User</a>
+      <th:block th:if="${session.userRoleId == 1}">
+        <a th:href="@{/admin/users}">Quản lý User</a>
         <a th:href="@{/movies/manage}">Quản lý Phim</a>
-      </th:block>
-      <th:block th:if="${role == 2}">
-        <a th:href="@{/profile}">Profile</a>
         <a th:href="@{/movies/favorites}">Phim Yêu Thích</a>
+        <a th:href="@{/logout}">Đăng Xuất</a>
+      </th:block>
+      <th:block th:if="${session.userRoleId == 2}">
+        <a th:href="@{/movies/favorites}">Phim Yêu Thích</a>
+        <a th:href="@{/logout}">Đăng Xuất</a>
+      </th:block>
+      <th:block th:if="${session.userRoleId == null}">
+        <a th:href="@{/login}">Đăng Nhập</a>
       </th:block>
     </div>
+  </div>
+
+
   </div>
 </header>
 
