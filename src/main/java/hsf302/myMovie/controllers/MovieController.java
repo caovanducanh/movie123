@@ -32,6 +32,9 @@ public class MovieController {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private CountryService countryService;
+
 
     @GetMapping("/home")
     public String getAllMovies(Model model) {
@@ -46,10 +49,12 @@ public class MovieController {
         return "home";
     }
 
-
-
-
-
+    @GetMapping("/manage-movies")
+    public String getAllMoviesList(Model model) {
+        List<Movie> movies = movieService.getAllMovies();
+        model.addAttribute("movies", movies);
+        return "movie-list";
+    }
 
     @GetMapping("/getmoviebyid")
     public String getMovieById(@RequestParam(name = "id") int id, Model model) {
@@ -71,34 +76,39 @@ public class MovieController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("movie", new Movie());
-        return "movies/create";
+        Movie movieEmpty = new Movie();
+        model.addAttribute("movie", movieEmpty);
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("countries", countries);
+        return "movie-form";
     }
 
     @PostMapping("/save")
     public String saveMovie(@ModelAttribute Movie movie) {
         movieService.saveMovie(movie);
-        return "redirect:/movies";
+        return "redirect:/movies/home";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable int id, Model model) {
         Optional<Movie> movie = movieService.getMovieById(id);
         movie.ifPresent(value -> model.addAttribute("movie", value));
-        return "movies/edit";
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("countries", countries);
+        return "movie-form";
     }
 
     @PostMapping("/update/{id}")
     public String updateMovie(@PathVariable int id, @ModelAttribute Movie movie) {
         movie.setId(id);
         movieService.saveMovie(movie);
-        return "redirect:/movies";
+        return "redirect:/movies/manage-movies";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable int id) {
         movieService.deleteMovie(id);
-        return "redirect:/movies";
+        return "redirect:/movies/manage-movies";
     }
     @GetMapping
     public String getMoviesByName(@RequestParam(name = "keyword", required = false) String keyword, Model model) {

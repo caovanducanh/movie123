@@ -1,0 +1,98 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1> Add new movie  </h1>-->
+<!--<form action="/movies/save" method="post">-->
+<!--    &lt;!&ndash; ID tự tăng, nên mình giấu nó đi, đặc biệt khi tạo mới, đâu cần nó xh &ndash;&gt;-->
+<!--    <input type="text" name="id" th:value="${movie.id}">-->
+<!--    <p>-->
+<!--        <label for="movieName">Movie Name:</label>-->
+<!--        <input type="text" id="movieName" name="movieName" th:value="${movie.movieName}" required>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <label for="description">Author:</label>-->
+<!--        <input type="text" id="description" name="description" th:value="${movie.description}" required>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <label for="releaseYear">Description:</label>-->
+<!--        <input type="text" id="releaseYear" name="releaseYear" th:value="${movie.releaseYear}" required>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <label for="movieURL">movieURL:</label>-->
+<!--        <input type="text" id="movieURL" name="movieURL" th:value="${movie.movieURL}" required>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <label for="trailerURL">trailerURL:</label>-->
+<!--        <input type="text" id="trailerURL" name="trailerURL" th:value="${movie.trailerURL}" required>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <label for="Country">Country:</label>-->
+<!--        <select id="Country" name="Country" required>-->
+<!--            <option th:each="c : ${countries}"-->
+<!--                    th:value="${c.id}"-->
+<!--                    th:text="${c.countryName}">-->
+<!--&lt;!&ndash;                    th:selected="${book.cate != null && c.id == book.cate.id}">&ndash;&gt;-->
+<!--            </option>-->
+<!--        </select>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <button type="submit">Save</button>-->
+<!--    </p>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Form</title>
+</head>
+<body>
+<h1 th:text="${movie.id != 0} ? 'Update Movie' : 'Add New Movie'"></h1>
+
+<!-- Kiểm tra nếu có ID thì gửi form tới update, nếu không thì gửi tới save -->
+<form th:action="${movie.id != 0} ? '/movies/update/' + ${movie.id} : '/movies/save'" method="post">
+    <!-- ID tự động tăng, ẩn trường ID nếu cập nhật -->
+    <input type="hidden" name="id" th:value="${movie.id}">
+
+    <p>
+        <label for="movieName">Movie Name:</label>
+        <input type="text" id="movieName" name="movieName" th:value="${movie.movieName}" required>
+    </p>
+    <p>
+        <label for="description">Author:</label>
+        <input type="text" id="description" name="description" th:value="${movie.description}" required>
+    </p>
+    <p>
+        <label for="releaseYear">Description:</label>
+        <input type="text" id="releaseYear" name="releaseYear" th:value="${movie.releaseYear}" required>
+    </p>
+    <p>
+        <label for="movieURL">Movie URL:</label>
+        <input type="text" id="movieURL" name="movieURL" th:value="${movie.movieURL}" required>
+    </p>
+    <p>
+        <label for="trailerURL">Trailer URL:</label>
+        <input type="text" id="trailerURL" name="trailerURL" th:value="${movie.trailerURL}" required>
+    </p>
+    <p>
+        <label for="Country">Country:</label>
+        <select id="Country" name="country.id" required>
+            <option th:each="c : ${countries}"
+                    th:value="${c.id}"
+                    th:text="${c.countryName}"
+                    th:selected="${movie.country != null && c.id == movie.country.id}">
+            </option>
+        </select>
+    </p>
+    <p>
+        <button type="submit" th:text="${movie.id != 0} ? 'Update' : 'Save'"></button>
+    </p>
+</form>
+
+</body>
+</html>

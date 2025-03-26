@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> Movie List</h1>
+<a href="/movies/create">Add new movie</a>
+<table style="width: 80%; border-collapse: collapse; margin: auto; text-align: center">
+    <thead>
+    <tr>
+        <th style="border: 1px solid black; padding: 5px;">MovieID</th>
+        <th style="border: 1px solid black; padding: 5px;">MovieName</th>
+        <th style="border: 1px solid black; padding: 5px;">ReleaseYear</th>
+        <th style="border: 1px solid black; padding: 5px;">Description</th>
+        <th style="border: 1px solid black; padding: 5px;">Action</th>
+<!--        <th th:if="${role == 1}" style="border: 1px solid black; padding: 5px;">Action</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="obj : ${movies}">
+        <td style="border: 1px solid black; padding: 5px;" th:text="${obj.movieName}"></td>
+        <td style="border: 1px solid black; padding: 5px;"><span th:text="${obj.description}"></span></td>
+        <td style="border: 1px solid black; padding: 5px;" th:text="${obj.releaseYear}"></td>
+        <td style="border: 1px solid black; padding: 5px;" th:text="${obj.country}"></td>
+        <td style="border: 1px solid black; padding: 5px;">
+<!--        <td th:if="${role == 1}" style="border: 1px solid black; padding: 5px;">-->
+            <a th:href="@{'/movies/edit/' + ${obj.id}}">Sửa</a> |
+            <a th:href="@{'/movies/delete/' + ${obj.id}}"
+               onclick="return confirm('Are you sure?');">Xoá</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
