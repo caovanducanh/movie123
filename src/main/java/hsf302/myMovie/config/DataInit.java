@@ -94,23 +94,25 @@ public class DataInit implements CommandLineRunner {
 
         // Thêm nhiều phim
         String[][] movies = {
-                {"Interstellar", "A sci-fi journey through space and time.", "2014", "9", "https://example.com/interstellar", "https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2025/2/28/interstellar-1740030627-174003-3997-2700-1740030837-17407532558271386299933-32-177-571-1207-crop-17407533212841333151791.jpg", "https://example.com/interstellar_trailer"},
+                {"Interstellar", "A sci-fi journey through space and time.", "2014", "9", "https://example.com/interstellar", "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF1000,1000_QL80_.jpg", "https://example.com/interstellar_trailer"},
 
-                {"The Dark Knight", "Batman fights Joker in Gotham.", "2008", "9", "https://example.com/dark_knight", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ77pn9nAtHPaqM6EGK28nO7niXSMxgHsMdBA&s", "https://example.com/dark_knight_trailer"},
+                {"The Dark Knight", "Batman fights Joker in Gotham.", "2008", "9", "https://example.com/dark_knight", "https://play-lh.googleusercontent.com/auIs5tjWlLYaFPGClZOJ7m5YVbnX6uBvz0X02r8TkwFKdzE53ww2MqWSS9gU0YNqoYwvpg", "https://example.com/dark_knight_trailer"},
 
-                {"Titanic", "A romantic drama set on the ill-fated Titanic.", "1997", "8", "https://example.com/titanic", "https://example.com/titanic_thumb", "https://example.com/titanic_trailer"},
-                {"Avatar", "An epic sci-fi adventure on Pandora.", "2009", "8", "https://example.com/avatar", "https://example.com/avatar_thumb", "https://example.com/avatar_trailer"},
+                {"Titanic", "A romantic drama set on the ill-fated Titanic.", "1997", "8", "https://example.com/titanic", "https://upload.wikimedia.org/wikipedia/vi/a/ab/Titanic_3D_poster_Vietnam.jpg", "https://example.com/titanic_trailer"},
 
-                {"The Matrix", "A hacker discovers the truth about reality.", "1999", "9", "https://example.com/matrix", "https://example.com/matrix_thumb", "https://example.com/matrix_trailer"},
-                {"Gladiator", "A Roman general seeks revenge.", "2000", "9", "https://example.com/gladiator", "https://example.com/gladiator_thumb", "https://example.com/gladiator_trailer"},
+                {"Avatar", "An epic sci-fi adventure on Pandora.", "2009", "8", "https://example.com/avatar", "https://play-lh.googleusercontent.com/VMPS_t-CGBp-NVqefuMvMOGEDfmovBcGiepmAAF1I9hkdjLOjsfVjEV5d41DTAy3qI_akNaJKTdmaNwMRIs=w240-h480-rw", "https://example.com/avatar_trailer"},
 
-                {"Joker", "The origin story of the iconic villain.", "2019", "8", "https://example.com/joker", "https://example.com/joker_thumb", "https://example.com/joker_trailer"},
+                {"The Matrix", "A hacker discovers the truth about reality.", "1999", "9", "https://example.com/matrix", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQscJz2jJQ2Q4BJHx_WBSYqCVidQDu_Ir8U5w&s", "https://example.com/matrix_trailer"},
 
-                {"Forrest Gump", "The extraordinary life of Forrest Gump.", "1994", "9", "https://example.com/forrest_gump", "https://example.com/forrest_gump_thumb", "https://example.com/forrest_gump_trailer"},
+                {"Gladiator", "A Roman general seeks revenge.", "2000", "9", "https://example.com/gladiator", "https://upload.wikimedia.org/wikipedia/en/f/fb/Gladiator_%282000_film_poster%29.png", "https://example.com/gladiator_trailer"},
 
-                {"The Godfather", "A mafia family's rise and struggles.", "1972", "10", "https://example.com/godfather", "https://example.com/godfather_thumb", "https://example.com/godfather_trailer"},
+                {"Joker", "The origin story of the iconic villain.", "2019", "8", "https://example.com/joker", "https://i.pinimg.com/originals/8b/f6/6f/8bf66fb9f8aa2725ccc423c3551b0580.jpg", "https://example.com/joker_trailer"},
 
-                {"Pulp Fiction", "Intertwined crime stories in LA.", "1994", "9", "https://example.com/pulp_fiction", "https://example.com/pulp_fiction_thumb", "https://example.com/pulp_fiction_trailer"}
+                {"Forrest Gump", "The extraordinary life of Forrest Gump.", "1994", "9", "https://example.com/forrest_gump", "https://levushop.com/wp-content/uploads/2022/09/tong-hop-cau-noi-hay-cua-forrest-gump.jpg", "https://example.com/forrest_gump_trailer"},
+
+                {"The Godfather", "A mafia family's rise and struggles.", "1972", "10", "https://example.com/godfather", "https://kienviet.net/wp-content/uploads/2022/12/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg", "https://example.com/godfather_trailer"},
+
+                {"Pulp Fiction", "Intertwined crime stories in LA.", "1994", "9", "https://example.com/pulp_fiction", "https://musicart.xboxlive.com/7/767c6300-0000-0000-0000-000000000002/504/image.jpg", "https://example.com/pulp_fiction_trailer"}
         };
 
         for (String[] movieData : movies) {
