@@ -1,14 +1,12 @@
 package hsf302.myMovie.controllers;
 
-import hsf302.myMovie.models.Country;
-import hsf302.myMovie.models.Genre;
-import hsf302.myMovie.models.Movie;
-import hsf302.myMovie.models.MovieGenre;
+import hsf302.myMovie.models.*;
 import hsf302.myMovie.repo.GenreRepo;
 import hsf302.myMovie.services.CountryService;
 import hsf302.myMovie.services.GenreService;
 import hsf302.myMovie.services.MovieGenreService;
 import hsf302.myMovie.services.MovieService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +29,10 @@ public class MovieController {
 
     @Autowired
     private CountryService countryService;
-
     
 
-
     @GetMapping("/home")
-    public String getAllMovies(Model model) {
+    public String getAllMovies(Model model , HttpSession session) {
         List<Movie> movies = movieService.getAllMovies();
         List<Genre> genres = genreService.getAllGenres();
         List<Country> countries = countryService.getAllCountries();
@@ -45,6 +41,8 @@ public class MovieController {
         model.addAttribute("countries", countries);
         model.addAttribute("genres", genres);
         model.addAttribute("movies", movies);
+        User loggedAcc = (User) session.getAttribute("acc");
+        model.addAttribute("role", loggedAcc.getRole());
         return "home";
     }
 
