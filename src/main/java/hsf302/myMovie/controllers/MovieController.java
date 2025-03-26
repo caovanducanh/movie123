@@ -84,7 +84,7 @@ public class MovieController {
     @PostMapping("/save")
     public String saveMovie(@ModelAttribute Movie movie) {
         movieService.saveMovie(movie);
-        return "redirect:/movies/home";
+        return "redirect:/movies/manage-movies";
     }
 
     @GetMapping("/edit/{id}")
