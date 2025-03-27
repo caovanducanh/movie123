@@ -119,10 +119,10 @@
     </thead>
     <tbody>
     <tr th:each="obj : ${movies}">
-        <td th:text="${obj.movieName}"></td>
-        <td><span th:text="${obj.description}"></span></td>
+        <td th:text="${obj.getId()}"></td>
+        <td><span th:text="${obj.movieName}"></span></td>
         <td th:text="${obj.releaseYear}"></td>
-        <td th:text="${obj.country}"></td>
+        <td th:text="${obj.getDescription()}"></td>
         <td class="action-links">
             <a th:href="@{'/movies/edit/' + ${obj.id}}" class="edit">Edit</a>
             <a th:href="@{'/movies/delete/' + ${obj.id}}"
