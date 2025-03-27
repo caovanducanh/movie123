@@ -7,7 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #121212;
+      color: white;
       margin: 0;
       padding: 0;
     }
@@ -18,7 +19,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px 20px;
-      background: #007bff;
+      background: #222;
       color: white;
       font-size: 20px;
     }
@@ -35,16 +36,22 @@
       padding: 8px;
       font-size: 14px;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
+      background: #333;
+      color: white;
     }
 
     .filter-box button {
       padding: 8px 12px;
       border: none;
-      background-color: #ff4500;
+      background-color: #e50914;
       color: white;
       border-radius: 5px;
       cursor: pointer;
+    }
+
+    .filter-box button:hover {
+      background-color: #ff1c22;
     }
 
     /* Dropdown Menu */
@@ -54,7 +61,7 @@
     }
 
     .dropbtn {
-      background-color: #007bff;
+      background-color: #222;
       color: white;
       padding: 10px 15px;
       font-size: 16px;
@@ -67,21 +74,21 @@
       display: none;
       position: absolute;
       right: 0;
-      background-color: white;
+      background-color: #333;
       min-width: 180px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
       border-radius: 5px;
     }
 
     .dropdown-content a {
       display: block;
-      color: black;
+      color: white;
       padding: 10px;
       text-decoration: none;
     }
 
     .dropdown-content a:hover {
-      background-color: #ddd;
+      background-color: #444;
     }
 
     .dropdown:hover .dropdown-content {
@@ -93,11 +100,12 @@
       max-width: 1200px;
       margin: 20px auto;
       padding: 20px;
-      background: white;
+      background: #1e1e1e;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
 
+    /* Movie Grid */
     .movie-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -105,24 +113,33 @@
     }
 
     .movie-card {
-      background: white;
+      background: #2a2a2a;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
       text-align: center;
       padding: 10px;
+      transition: transform 0.3s ease-in-out;
     }
 
     .movie-card img {
       width: 100%;
       height: auto;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #444;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Hiệu ứng zoom */
+    .movie-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
 
     .movie-title {
       font-size: 18px;
       font-weight: bold;
       margin-top: 10px;
+      color: white;
     }
   </style>
 </head>
@@ -130,9 +147,7 @@
 
 <header class="header">
   <h2>Movie List</h2>
-  <div th:if="${role == 1}" style="width: 80%; margin: auto;">
-  <a href="/movies/manage-movies">Manage movie</a>
-  </div>
+
   <!-- Bộ lọc Genre, Country và Search -->
   <div class="filter-box">
     <form id="filterForm" th:action="@{/movies}" method="get">
@@ -154,22 +169,19 @@
     <button class="dropbtn">☰ Menu</button>
     <div class="dropdown-content">
       <th:block th:if="${session.userRoleId == 1}">
-        <a th:href="@{/admin/users}">Quản lý User</a>
-        <a th:href="@{/movies/manage}">Quản lý Phim</a>
-        <a th:href="@{/movies/favorites}">Phim Yêu Thích</a>
-        <a th:href="@{/logout}">Đăng Xuất</a>
+        <a th:href="@{/admin/users}">Manage User</a>
+        <a th:href="@{/movies/manage-movies}">Manage Movies</a>
+        <a th:href="@{/movies/favorites}">Favorite Films</a>
+        <a th:href="@{/logout}">Logout</a>
       </th:block>
       <th:block th:if="${session.userRoleId == 2}">
-        <a th:href="@{/movies/favorites}">Phim Yêu Thích</a>
-        <a th:href="@{/logout}">Đăng Xuất</a>
+        <a th:href="@{/movies/favorites}">Favorite Films</a>
+        <a th:href="@{/logout}">Logout</a>
       </th:block>
       <th:block th:if="${session.userRoleId == null}">
-        <a th:href="@{/login}">Đăng Nhập</a>
+        <a th:href="@{/login}">Login</a>
       </th:block>
     </div>
-  </div>
-
-
   </div>
 </header>
 
