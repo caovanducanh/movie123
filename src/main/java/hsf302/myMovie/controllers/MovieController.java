@@ -43,8 +43,8 @@ public class MovieController {
         model.addAttribute("countries", countries);
         model.addAttribute("genres", genres);
         model.addAttribute("movies", movies);
-        User loggedAcc = (User) session.getAttribute("acc");
-        model.addAttribute("role", loggedAcc.getRole());
+//        User loggedAcc = (User) session.getAttribute("acc");
+//        model.addAttribute("role", loggedAcc.getRole());
         return "home";
     }
 
